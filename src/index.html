@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="assets/css/index.css" />
+    <title>Wladimir Hernandez | Frontend Developer</title>
+  </head>
+  <body class="bg-purple-100 flex flex-col h-screen justify-between">
+    <include src="partials/header.html"></include>
+    <main class="container mx-auto">
+      <div
+        x-data="{page: location.hash}"
+        @hashchange.window="page = location.hash"
+      >
+        <span x-show="page === ''"
+          ><include src="partials/about.html"></include
+        ></span>
+        <span x-show="page === '#portfolio'">
+         <h1 class="text-center text-gray-700 text-3xl">Coming soon</h1>
+        </span>
+    <!---
+        <span x-show="page === '#portfolio'">
+          <include src="partials/portfolio.html"></include>
+        </span>
+    --->
+      </div>
+    </main>
+    <include src="partials/footer.html"></include>
+
+    <script src="assets/js/index.js"></script>
+  </body>
+</html>
