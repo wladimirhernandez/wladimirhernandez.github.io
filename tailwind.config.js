@@ -24,6 +24,7 @@ module.exports = {
       green: colors.emerald,
       blue: colors.blue,
       indigo: colors.indigo,
+      teal: colors.teal,
       purple: {
         "50": "#fefaff",
         "100": "#fefaff",
@@ -213,7 +214,10 @@ module.exports = {
       '2xl': '0 25px 25px rgba(0, 0, 0, 0.15)',
       none: '0 0 #0000',
     },
-    fill: { current: 'currentColor' },
+    fill: { current: 'currentColor',
+      white: '#fff',
+      teal: colors.teal,
+  },
     grayscale: {
       0: '0',
       DEFAULT: '100%',
