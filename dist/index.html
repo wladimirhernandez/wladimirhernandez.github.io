@@ -6,11 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css.5ec3a257.css">
     <title>Wladimir Hernandez | Frontend Developer</title>
+    <!--
+      font-awesome
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="/css.5ec3a257.js"></script></head>
   <body class="bg-gray-100 flex flex-col h-screen justify-between">
     <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
   <div class="flex items-center flex-shrink-0 text-white mr-6">
-    <span class="font-semibold text-xl tracking-tight">Wladimir Hernandez</span>
+    <span class="font-semibold text-2xl tracking-tight">Wladimir Hernandez</span>
   </div>
   <div class="block hidden">
     <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
@@ -56,15 +60,16 @@
       transform
       duration-500
       md:w-1/2
+      lg:w-2/5
     ">
-    <div class="w-64 rounded-full mx-auto overflow-hidden h-64">
-      <img class="object-cover" src="https://scontent-mia3-2.xx.fbcdn.net/v/t1.6435-9/137540023_2803904253159890_1689130949767367206_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=p9o0m2Dt5ssAX_E7bq5&_nc_ht=scontent-mia3-2.xx&oh=c8b82666c0ccf26fd4c8c98b1994f70a&oe=619D5E04" alt="">
+    <div class="w-36 rounded-full mx-auto overflow-hidden h-36">
+      <img class="object-cover" src="/profile.fd20e9e1.jpg" alt="">
     </div>
 
     <div class="mt-4 text-center">
       <h1 class="text-2xl font-bold text-gray-700">Wladimir Hernandez</h1>
       <h2 class="font-bold text-gray-400">Frontend Developer
-      <p class="text-sm mt-2 text-gray-500">Experienced Frontend Web Developer with a demonstrated history of working in the information technology and services industry. Skilled in Vue.js, SASS, Front-end Development, JavaScript, and Git. Strong engineering professional graduated from Universidad Nacional Experimental Politécnica de la Fuerza Armada.
+      <p class="text-sm mt-2 text-gray-500">I'm a Frontend Developer with +4 years of experience using Javascript. I have worked in Startups and Digital Agencies on more than 30 projects (Websites, E-Commerces and SaaS). I also have extensive experience using tools like Git, Docker and BitBucket.
     </p>
     <div class="pt-5"></div>
     <!--
@@ -92,14 +97,38 @@
         </a>
       </div>
       -->
+      <div class="grid grid-cols-4 gap-4 my-4 mx-auto sm:w-2/3 lg:w-100 xl:w-2/3">
+  <!--Facebook Button -->
+
+  <button x-on:click="window.open('https://www.facebook.com/wladimir.hernandez.3139', '_blank');" id="facebook" class="bg-white sticky mx-auto duration-500 border-2 border-blue-600 fixed w-12 transform hover:-translate-y-3 h-12 text-2xl rounded-full hover:bg-blue-600 hover:text-white text-blue-600">
+    <i class="fab fa-facebook-f"></i>
+  </button>
+
+  <!--İnstagram Button -->
+
+  <button x-on:click="window.open('https://www.instagram.com/iamwladi/', '_blank');" id="instagram" class="mx-auto border-2 hover:border-0 border-pink-500 bg-gradient-to-b text-2xl hover:from-indigo-600 hover:via-pink-600 hover:to-yellow-500 min-w-wull hover:text-white bg-white text-pink-600 w-12 h-12 transform hover:-translate-y-3 rounded-full duration-500">
+    <i class="fab fa-instagram"></i>
+  </button>
+
+  <!--Twitter Button -->
+  <button x-on:click="window.open('https://twitter.com/wladimirdev', '_blank');" id="twitter" class="mx-auto bg-white transform hover:-translate-y-3 border-2 w-12 h-12 rounded-full duration-500 text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-white text-2xl">
+    <i class="fab fa-twitter"></i>
+  </button>
+
+  <!--Linkedin Button-->
+  <button x-on:click="window.open('https://www.linkedin.com/in/wladimir-hernandez/', '_blank');" id="linkedin" class="mx-auto bg-white transform hover:-translate-y-3 border-2 w-12 h-12 rounded-full duration-500 text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white text-2xl">
+    <i class="fab fa-linkedin-in"></i>
+  </button>
+</div>
+
     </h2></div>
   </div>
 </div>
 </span>
         <span x-show="page === '#portfolio'">
-         <h1 class="text-center text-gray-700 text-3xl">Coming soon</h1>
+          <h1 class="text-center text-gray-700 text-3xl">Coming soon</h1>
         </span>
-    <!---
+        <!---
         <span x-show="page === '#portfolio'">
           <include src="partials/portfolio.html"></include>
         </span>
