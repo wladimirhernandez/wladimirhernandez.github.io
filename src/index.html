@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="assets/css/index.css" />
+    <!--favicons-->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#14b8a6">
+    <meta name="theme-color" content="#14b8a6 ">
+    <meta name="description" content="Wladimir Hernandez | Frontend Developer" />
+    <meta name="keywords" content="Wladimir Hernandez, Frontend Developer" />
+    <meta name="author" content="Wladimir Hernandez" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="google" content="nositelinkssearchbox" />
+    <meta name="google" content="notranslate" />
     <title>Wladimir Hernandez | Frontend Developer</title>
     <!--
       font-awesome
@@ -16,7 +30,7 @@
   </head>
   <body class="bg-gray-100 flex flex-col h-screen justify-between">
     <include src="partials/header.html"></include>
-    <main class="container mx-auto pt-8">
+    <main class="container mx-auto py-8 px-4">
       <div
         x-data="{page: location.hash}"
         @hashchange.window="page = location.hash"
