@@ -82,6 +82,26 @@ export const profile = {
       end: '2018-07',
     },
   ],
+  /**
+   * Certifications, newest first. AWS: completion certificate and class
+   * confirmation (2023-06-06); its old transcript link now redirects to the
+   * Skill Builder home page, so no link. freeCodeCamp: verified on its public
+   * page (issued 2023-03-27, about 300 hours).
+   */
+  certifications: [
+    {
+      name: 'AWS Partner: Sales Accreditation (Business)',
+      issuer: 'Amazon Web Services',
+      date: '2023-06',
+      credentialId: 'SyRQCOPMfU6_4K9XdkLYcw2',
+    },
+    {
+      name: 'JavaScript Algorithms and Data Structures (Legacy V7)',
+      issuer: 'freeCodeCamp',
+      date: '2023-03',
+      url: 'https://www.freecodecamp.org/certification/fcc57bf97ea-6af8-4128-91be-3841ca763c3a/javascript-algorithms-and-data-structures',
+    },
+  ],
 } as const;
 
 export type EducationId = (typeof profile.education)[number]['id'];

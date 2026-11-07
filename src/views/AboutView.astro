@@ -139,6 +139,32 @@ const linkClass =
             ))
           }
         </ul>
+
+        <h2 id="about-certifications" class={`${headingClass} mt-12`}>{t('about.certifications')}</h2>
+        <ul class="flex flex-col gap-3 text-body" aria-labelledby="about-certifications">
+          {
+            profile.certifications.map((cert) => (
+              <li>
+                {'url' in cert ? (
+                  <a class={`${linkClass} font-semibold`} href={cert.url} target="_blank" rel="noopener noreferrer">
+                    {cert.name}
+                    <span class="sr-only"> {t('work.newTab')}</span>
+                  </a>
+                ) : (
+                  <span class="font-semibold">{cert.name}</span>
+                )}
+                <span class="block text-theme-dark-gray/60">
+                  {cert.issuer}, {formatMonth(lang, cert.date)}
+                </span>
+                {'credentialId' in cert && (
+                  <span class="block text-theme-dark-gray/60">
+                    {t('about.credentialId')}: <span class="break-all">{cert.credentialId}</span>
+                  </span>
+                )}
+              </li>
+            ))
+          }
+        </ul>
       </section>
     </div>
 
