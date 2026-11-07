@@ -37,7 +37,7 @@ Showcase work experience, selected Solomedia (agency) projects and personal proj
 - [x] T08 — Project page `/work/[slug]`: case study layout and reveal animations. Route: delegated writer (parallel unit). Evidence: commit bd9ab54; parent review fixed the hero gradient and replaced a duplicate ProjectRow with the home one.
 - [x] T09 — About page: bio, experience, contact. Route: delegated writer (parallel unit). Evidence: commit 1f2b19f.
 - [x] T10 — Responsive and parity verification: parity-check at several viewports against this.design (layout/motion parity, not content), plus an accessibility pass and `prefers-reduced-motion`. Evidence 2026-11-07: production build + headless Chrome over 7 pages x desktop/mobile x normal/reduced motion: axe WCAG 2.2 AA clean, no horizontal scroll, one h1, all images with alt, no console errors; T05 regression 20/20. Fixed: secondary text raised from 40% to 60% opacity for AA contrast. Not run: parity-check against this.design (pixel parity is not meaningful with different content).
-- [ ] T12 — i18n (2026-11-07). User: "tambien por un localizador de idioma y traducción eng/esp". Scope: Astro i18n routing (en at /, es at /es/), EN/ES switcher in the header that keeps the current page and remembers the choice, first-visit redirect to /es/ for Spanish browsers without a saved choice, hreflang alternates, full Spanish translation (UI, profile, experience, project texts) in neutral professional Spanish. Route: inline (one intertwined unit).
+- [x] T12 — i18n (2026-11-07). User: "tambien por un localizador de idioma y traducción eng/esp". Scope: Astro i18n routing (en at /, es at /es/), EN/ES switcher in the header that keeps the current page and remembers the choice, first-visit redirect to /es/ for Spanish browsers without a saved choice, hreflang alternates, full Spanish translation (UI, profile, experience, project texts) in neutral professional Spanish. Route: inline (one intertwined unit). Evidence: commit 5150006; 39/39 i18n E2E checks (routes, hreflang, switcher, detection, stored choice) and axe WCAG 2.2 AA on 14 pages; fixed the switcher accessible name (WCAG 2.5.3).
 - [ ] T11 — Deploy: log into the personal GitHub account, push, enable Pages via Actions, verify the live site.
 
 ## Acceptance criteria
@@ -58,5 +58,9 @@ Showcase work experience, selected Solomedia (agency) projects and personal proj
 
 - 2026-11-07: The user asked not to be interrupted by review prompts ("revisa tú pero no cortes el trabajo"). RDD disabled for this clone only; Claude self-reviews each diff before committing. Self-review found a missing fetch timeout, now fixed.
 
+- 2026-11-07: User: "hay que enfatizar que estos son los proyectos recientes" -> hero states years since 2018, "Recent work" headings (7996a28). User later asked for "programando desde los 14 años" and then "No mira creo que el 2018 sonaba mejor" -> reverted (010f0da).
+- 2026-11-07: User: skills/certs "super obsoleto" -> refreshed; "estas sacando mi tiempo trabajando con angular fueron 6 años" -> Angular + Java and NestJS restored; certifications dropped; English B2.
+- 2026-11-07: New CV ("CV Profesional - Español") synced (8554f86): CV titles, dates and achievements in EN/ES, master's in progress, headline. User: on the site "lo de c++ y todo lo demás creo que si debe ir ... por que muestra mi trabajo en general" -> desktop/game UI skills kept on the site. Open: the CV says Product Engineer since April 2026, the user had confirmed February.
+
 ## Next step
-T12 i18n, then T11 deploy (push blocked until the gh token gets the workflow scope; the user approved PR and merge on 2026-11-07).
+T11 deploy: run `gh auth refresh -h github.com -s workflow`, then push, PR and merge (approved by the user on 2026-11-07), switch Pages to Actions and verify the live site.
