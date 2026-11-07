@@ -33,7 +33,7 @@ const links = [
   { label: 'GitHub', href: profile.contact.github },
 ];
 
-const headingClass = 'mb-6 text-body font-semibold text-theme-dark-gray/40';
+const headingClass = 'mb-6 text-body font-semibold text-theme-dark-gray/60';
 const linkClass =
   'underline decoration-theme-dark-gray/40 underline-offset-4 transition-colors hover:decoration-current focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-theme-light';
 ---
@@ -52,7 +52,7 @@ const linkClass =
             {current.role} at {current.company}
           </p>
         )}
-        <p class="text-theme-dark-gray/40">{profile.location}</p>
+        <p class="text-theme-dark-gray/60">{profile.location}</p>
       </aside>
     </div>
 
@@ -62,13 +62,13 @@ const linkClass =
       <ol class="max-w-[60rem] border-t border-theme-gray">
         {experience.map((entry) => (
           <li class="grid gap-2 border-b border-theme-gray py-6 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-gutter" data-reveal>
-            <p class="text-body text-theme-dark-gray/40">
+            <p class="text-body text-theme-dark-gray/60">
               {formatRange(entry.start, entry.end)}
             </p>
             <div>
               <h3 class="text-lead font-medium">
                 {entry.role}
-                <span class="text-theme-dark-gray/40"> · {entry.company}</span>
+                <span class="text-theme-dark-gray/60"> · {entry.company}</span>
               </h3>
               {entry.highlights.length > 0 && (
                 <ul class="mt-3 flex flex-col gap-2 text-body">
@@ -107,7 +107,7 @@ const linkClass =
         <h2 id="about-education" class={headingClass}>Education</h2>
         <p class="text-body font-semibold">{profile.education.degree}</p>
         <p class="text-body">{profile.education.institution}</p>
-        <p class="text-body text-theme-dark-gray/40">
+        <p class="text-body text-theme-dark-gray/60">
           {profile.education.location}, {educationYears}
         </p>
       </section>
@@ -117,7 +117,7 @@ const linkClass =
         <ul class="text-body">
           {profile.spokenLanguages.map((entry) => (
             <li>
-              {entry.language} <span class="text-theme-dark-gray/40">· {entry.level}</span>
+              {entry.language} <span class="text-theme-dark-gray/60">· {entry.level}</span>
             </li>
           ))}
         </ul>
@@ -130,7 +130,7 @@ const linkClass =
           {profile.certifications.map((cert) => (
             <li>
               <span class="font-semibold">{cert.name}</span>
-              <span class="block text-theme-dark-gray/40">
+              <span class="block text-theme-dark-gray/60">
                 {cert.issuer}, {cert.year}
               </span>
             </li>
