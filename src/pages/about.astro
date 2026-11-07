@@ -43,8 +43,9 @@ const linkClass =
     <!-- Lead statement with the current role aside. -->
     <div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_16rem] md:gap-gutter lg:grid-cols-[minmax(0,1fr)_20rem]">
       <h1 data-lead class="max-w-[60rem] text-2xl leading-[1.15] font-normal tracking-[-0.3px] md:text-3xl md:leading-[1.15] lg:text-heading lg:leading-[1.15]">
-        <span class="font-semibold">{profile.name}</span> is a {profile.role} building scalable web applications
-        and automating business processes since 2018, shipping projects for startups and digital agencies.
+        <span class="font-semibold">{profile.name}</span> is a {profile.role} who has been writing code since the age of
+        {profile.codingStartAge}. Today he builds scalable web applications and automates business processes for startups
+        and digital agencies.
       </h1>
       <aside data-lead class="text-body font-semibold md:pt-2" aria-label="Current role">
         {current && (

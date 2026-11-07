@@ -1,8 +1,7 @@
 ---
-import { profile, yearsOfExperience } from '../../data/profile';
+import { profile, yearsCoding } from '../../data/profile';
 
 const firstName = profile.name.split(' ')[0];
-const since = profile.careerStart.slice(0, 4);
 ---
 
 <!-- Pinned statement; the project grid scrolls over it while it fades. -->
@@ -12,7 +11,8 @@ const since = profile.careerStart.slice(0, 4);
     game-inspired interfaces.
   </h1>
   <p class="home-hero__lead" data-hero-title>
-    {yearsOfExperience()}+ years building for the web, since {since}. Below is some of my most recent work.
+    I've been writing code since I was {profile.codingStartAge}: {yearsCoding()} years and counting. Below is some of my
+    most recent work.
   </p>
 </section>
 
