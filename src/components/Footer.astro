@@ -1,0 +1,14 @@
+---
+import { profile } from '../data/profile';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-theme-black px-gutter pt-16 pb-5">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <a href="/" class="text-[1.75rem] leading-none font-semibold tracking-[-0.03em] text-white">
+      {profile.name.split(' ')[0]}<span aria-hidden="true">.</span>
+    </a>
+    <p class="font-bold">&copy;{year} {profile.name}</p>
+  </div>
+</footer>

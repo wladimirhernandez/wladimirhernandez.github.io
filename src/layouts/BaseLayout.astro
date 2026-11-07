@@ -1,4 +1,7 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -8,13 +11,14 @@ interface Props {
 
 const {
   title,
-  description = 'Wladimir Hernandez, frontend developer. Selected work and experience.',
+  description = 'Wladimir Hernández, Product Engineer. Selected work and experience.',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const route = Astro.url.pathname === '/' ? 'home' : 'inner';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-route={route} transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -28,8 +32,37 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <ClientRouter />
   </head>
   <body>
-    <slot />
+    <Header />
+
+    <!-- Holds a frozen copy of the outgoing page during navigation (see scripts/motion.ts). -->
+    <div id="curtain" class="curtain" transition:persist="curtain" aria-hidden="true"></div>
+
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <slot />
+        <Footer />
+      </div>
+    </div>
+
+    <script>
+      import '../scripts/motion';
+    </script>
   </body>
 </html>
+
+<style>
+  .curtain {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: 40;
+    block-size: 0;
+    overflow: hidden;
+    visibility: hidden;
+    background-color: var(--color-theme-black);
+    pointer-events: none;
+  }
+</style>

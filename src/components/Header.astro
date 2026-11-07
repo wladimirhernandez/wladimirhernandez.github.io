@@ -1,0 +1,112 @@
+---
+import { profile } from '../data/profile';
+---
+
+<!--
+  Persisted across navigations. Which action shows (About pill or back
+  arrow) follows the `data-route` attribute on <html>, which the router
+  updates from each new page, so no script is needed.
+-->
+<header class="site-header" transition:persist="site-header">
+  <a href="/" class="site-header__logo" aria-label={`${profile.name}, home`}>
+    {profile.name.split(' ')[0]}<span aria-hidden="true">.</span>
+  </a>
+
+  <nav class="site-header__actions" aria-label="Primary">
+    <a href="/about" class="site-header__pill" data-show-on="home">About</a>
+    <a href="/" class="site-header__back" data-show-on="inner" aria-label="Back to home">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+        <path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  .site-header__logo,
+  .site-header__actions {
+    pointer-events: auto;
+  }
+
+  .site-header__logo {
+    position: absolute;
+    inset-block-start: 15px;
+    inset-inline-start: var(--spacing-gutter);
+    font-size: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: #fff;
+    mix-blend-mode: difference;
+    text-decoration: none;
+  }
+
+  .site-header__actions {
+    position: absolute;
+    inset-block-start: 16px;
+    inset-inline-end: 16px;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .site-header__pill,
+  .site-header__back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    block-size: 55px;
+    border-radius: 9999px;
+    background-color: var(--color-theme-button);
+    color: var(--color-theme-icon);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .site-header__pill {
+    inline-size: 144px;
+    font-size: var(--text-nav);
+    font-weight: 600;
+  }
+
+  .site-header__back {
+    inline-size: 55px;
+  }
+
+  .site-header__pill:hover,
+  .site-header__back:hover {
+    background-color: var(--color-theme-gray);
+  }
+
+  .site-header__pill:focus-visible,
+  .site-header__back:focus-visible,
+  .site-header__logo:focus-visible {
+    outline: 2px solid var(--color-theme-light);
+    outline-offset: 3px;
+  }
+
+  :global(html[data-route='home']) [data-show-on='inner'],
+  :global(html[data-route='inner']) [data-show-on='home'] {
+    display: none;
+  }
+
+  @media (width >= 50rem) {
+    .site-header__logo {
+      inset-block-start: 43px;
+      inset-inline-start: 60px;
+      font-size: 1.75rem;
+    }
+
+    .site-header__actions {
+      inset-block-start: 30px;
+      inset-inline-end: 30px;
+    }
+  }
+</style>

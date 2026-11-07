@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profile } from '../data/profile';
+---
+
+<!-- Placeholder content until T09 builds the full about page. -->
+<BaseLayout title={`About | ${profile.name}`}>
+  <main class="px-10 pt-40 pb-24 md:pt-48">
+    <h1 class="max-w-[60rem] text-2xl md:text-3xl lg:text-heading">{profile.summary}</h1>
+    <p class="mt-8 text-body">
+      <a class="underline underline-offset-4" href={`mailto:${profile.contact.email}`}>{profile.contact.email}</a>
+    </p>
+  </main>
+</BaseLayout>
