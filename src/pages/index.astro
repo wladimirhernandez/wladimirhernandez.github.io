@@ -13,7 +13,8 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
   <main data-page="home">
     <Hero />
 
-    <section class="home-work" aria-label="Selected work">
+    <section class="home-work" aria-labelledby="home-work-title">
+      <h2 id="home-work-title" class="home-work__title">Recent work</h2>
       <!--
         Grid view. Without JS this is a plain CSS grid; the home script
         redistributes the cards into staggered columns for the parallax.
@@ -45,6 +46,15 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
   .home-work {
     position: relative;
     z-index: 1;
+  }
+
+  .home-work__title {
+    max-inline-size: var(--container-grid);
+    margin-inline: auto;
+    padding-inline: var(--spacing-gutter);
+    font-size: var(--text-body);
+    font-weight: 600;
+    color: rgb(242 242 240 / 0.6);
   }
 
   .home-grid {

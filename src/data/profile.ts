@@ -7,6 +7,8 @@ export const profile = {
   name: 'Wladimir Hernández',
   role: 'Product Engineer',
   location: 'Barinas, Venezuela (UTC−4)',
+  /** First professional role (Barbers Cloud, 2018-08); drives "years of experience". */
+  careerStart: '2018-08',
   summary:
     'Full-stack developer building scalable web applications and automating business processes since 2018, with a track record of shipping projects for startups and digital agencies.',
   contact: {
@@ -39,3 +41,10 @@ export const profile = {
     { name: 'Angular Certification', issuer: 'HackerRank', year: 2023 },
   ],
 } as const;
+
+/** Full years since the first professional role, computed at build time. */
+export function yearsOfExperience(now: Date = new Date()): number {
+  const [year, month] = profile.careerStart.split('-').map(Number);
+  const months = (now.getFullYear() - year) * 12 + (now.getMonth() + 1 - month);
+  return Math.floor(months / 12);
+}

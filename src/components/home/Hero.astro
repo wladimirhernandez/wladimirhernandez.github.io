@@ -1,7 +1,8 @@
 ---
-import { profile } from '../../data/profile';
+import { profile, yearsOfExperience } from '../../data/profile';
 
 const firstName = profile.name.split(' ')[0];
+const since = profile.careerStart.slice(0, 4);
 ---
 
 <!-- Pinned statement; the project grid scrolls over it while it fades. -->
@@ -10,6 +11,9 @@ const firstName = profile.name.split(' ')[0];
     I'm {firstName}, a <em class="home-hero__accent">{profile.role}</em> crafting storefronts, real-time tools and
     game-inspired interfaces.
   </h1>
+  <p class="home-hero__lead" data-hero-title>
+    {yearsOfExperience()}+ years building for the web, since {since}. Below is some of my most recent work.
+  </p>
 </section>
 
 <style>
@@ -26,6 +30,15 @@ const firstName = profile.name.split(' ')[0];
     font-weight: 300;
     line-height: 1;
     letter-spacing: -0.035em;
+  }
+
+  .home-hero__lead {
+    max-inline-size: 36rem;
+    margin-block-start: 2rem;
+    font-size: var(--text-lead);
+    font-weight: 500;
+    line-height: var(--text-lead--line-height);
+    color: rgb(242 242 240 / 0.6);
   }
 
   .home-hero__accent {
