@@ -1,0 +1,71 @@
+[
+  {
+    "id": "solomedia-product-engineer",
+    "company": "Solo Media Group",
+    "role": "Product Engineer",
+    "start": "2026-02",
+    "end": null,
+    "highlights": [],
+    "stack": []
+  },
+  {
+    "id": "insoftar-lead",
+    "company": "Insoftar",
+    "role": "Lead Full Stack and Automation Developer",
+    "start": "2022-10",
+    "end": "2026-01",
+    "highlights": [
+      "As tech lead of the DataJelpit project for Servicios Bolívar S.A., improved architecture, code coverage and unit tests by more than 60%.",
+      "Built bots on the company's own RPA platform, speeding up daily operations by more than 300%."
+    ],
+    "stack": ["Angular", "Java", "Spring Boot", "Selenium", "TestNG", "JUnit", "Ionic", "Angular Material"]
+  },
+  {
+    "id": "fixu-full-stack",
+    "company": "Fixu",
+    "role": "Full Stack Web Developer",
+    "start": "2022-03",
+    "end": "2022-09",
+    "highlights": [
+      "Created a base for email signature templates, one of the company's most requested services.",
+      "Introduced tutorials that walk customers through managing their websites on their own."
+    ],
+    "stack": ["Angular", "Java", "WordPress", "PHP", "JavaScript", "jQuery", "React"]
+  },
+  {
+    "id": "solomedia-team-leader",
+    "company": "Solo Media Group",
+    "role": "Team Leader",
+    "start": "2020-09",
+    "end": "2022-02",
+    "highlights": [
+      "Proposed and led the migration of the team's projects from Bootstrap to Tailwind CSS.",
+      "Drove SEO and performance work that raised Google PageSpeed Insights scores by about 20% on average."
+    ],
+    "stack": ["Angular", "Java", "WordPress", "JavaScript", "jQuery", "Liquid", "Vue", "Docker"]
+  },
+  {
+    "id": "solomedia-front-end",
+    "company": "Solo Media Group",
+    "role": "Front-end Web Developer",
+    "start": "2019-10",
+    "end": "2020-08",
+    "highlights": [
+      "Helped split the team into dedicated front-end and back-end roles for the first time, improving development and delivery times by more than 25%.",
+      "Built the Angular front end of an internal app for tracking developer schedules and tickets."
+    ],
+    "stack": ["Angular", "Java", "WordPress", "JavaScript", "jQuery", "Liquid", "Vue"]
+  },
+  {
+    "id": "barbers-cloud-front-end",
+    "company": "Barbers Cloud",
+    "role": "Front-end Web Developer",
+    "start": "2018-08",
+    "end": "2019-09",
+    "highlights": [
+      "Delivered visual and functional improvements across about 70% of the web platform.",
+      "Integrated the PayU payment gateway into the mobile app."
+    ],
+    "stack": ["Angular", "Ionic", "Angular Material"]
+  }
+]
