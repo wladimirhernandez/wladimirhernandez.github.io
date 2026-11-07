@@ -16,6 +16,8 @@ import { inflateRawSync } from 'node:zlib';
 const DOWNLOAD_URL = 'https://api.fontshare.com/v2/fonts/download/switzer';
 const ARCHIVE_DIR = 'Switzer_Complete/Fonts/WEB/fonts/';
 const FILES = ['Switzer-Variable.woff2', 'Switzer-VariableItalic.woff2'];
+// Fail fast instead of stalling a CI build when Fontshare does not answer.
+const TIMEOUT_MS = 30_000;
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'public', 'fonts');
@@ -25,7 +27,7 @@ const missing = FILES.filter((file) => !existsSync(join(outDir, file)));
 if (missing.length === 0) process.exit(0);
 
 try {
-  const response = await fetch(DOWNLOAD_URL);
+  const response = await fetch(DOWNLOAD_URL, { signal: AbortSignal.timeout(TIMEOUT_MS) });
   if (!response.ok) throw new Error(`HTTP ${response.status} from ${DOWNLOAD_URL}`);
   const entries = readZip(Buffer.from(await response.arrayBuffer()));
 
