@@ -27,9 +27,9 @@ Showcase work experience, selected Solomedia (agency) projects and personal proj
 - Branch: `feat/astro-rebuild`.
 
 ## Tasks
-- [ ] T01 — Decide the font: license Suisse Intl or use a free substitute (Switzer / Inter / Geist) with metric tuning. _Blocked on the user._
+- [x] T01 — Decide the font: license Suisse Intl or use a free substitute (Switzer / Inter / Geist) with metric tuning. Decision (2026-11-05): Switzer (Fontshare ITF free license), self-hosted, tuned to the Suisse metrics.
 - [ ] T02 — Gather content: work experience, Solomedia projects (what may be shown publicly), personal projects, updated bio and socials. _Blocked on the user._
-- [ ] T03 — Scaffold Astro + Tailwind v4 + GSAP; remove the old Parcel/PostHTML stack; keep the favicons and profile.jpg; add the GitHub Pages workflow (not pushed). Route: delegated (2+ non-trivial files).
+- [x] T03 — Scaffold Astro + Tailwind v4 + GSAP; remove the old Parcel/PostHTML stack; keep the favicons and profile.jpg; add the GitHub Pages workflow (not pushed). Route: inline (no writer trigger). Evidence: astro 7.4.6, tailwind 4.3.4, gsap 3.15.1, TS 6 (`@astrojs/check` does not support TS 7); Node 22.23.4 pinned in `.nvmrc`; `npm run build` gives 0 errors and static `dist/`.
 - [ ] T04 — Design tokens and base layout: colours (#000 / #f2f2f0 / #2b2b2b / #1e1e1e), type scale (16/22.4, 36/41.4 with tracking) and the grid (30px gap; breakpoints 800/1024/1380/1744/2104 for 3–7 columns).
 - [ ] T05 — Global motion shell: header (`transition:persist`), ClientRouter black-curtain page transition (power3.inOut, 250ms), and the ScrollSmoother lifecycle (>=768px via gsap.matchMedia; init on astro:page-load, kill on astro:before-swap); restore the home scroll position.
 - [ ] T06 — Content collections: schemas for projects and experience; seed data from T02.
@@ -48,5 +48,8 @@ Showcase work experience, selected Solomedia (agency) projects and personal proj
 ## Progress
 - 2026-10-22: Repo cloned; this.design analysed; stack decided (Astro + GSAP); branch `feat/astro-rebuild` created; feature document created. Paused: work resumes later, starting with T01/T02.
 
+- 2026-11-05: T01 decided (Switzer). Personal GitHub: github.com/wladimirhernandez. The user wants a later phase to optimize the whole personal brand (LinkedIn and the rest) after the portfolio ships.
+- 2026-11-07: Node 22.23.4 installed into the nvm folder (the global switch still needs an admin `nvm use 22.23.4`). T03 done.
+
 ## Next step
-T01 (font decision) and T02 (content) with the user; then T03.
+T04 (tokens, Switzer self-hosted, base layout); T02 content still needed from the user.
