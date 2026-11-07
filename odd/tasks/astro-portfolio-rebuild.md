@@ -30,7 +30,7 @@ Showcase work experience, selected Solomedia (agency) projects and personal proj
 - [x] T01 — Decide the font: license Suisse Intl or use a free substitute (Switzer / Inter / Geist) with metric tuning. Decision (2026-11-05): Switzer (Fontshare ITF free license), self-hosted, tuned to the Suisse metrics.
 - [ ] T02 — Gather content: work experience, Solomedia projects (what may be shown publicly), personal projects, updated bio and socials. _Blocked on the user._
 - [x] T03 — Scaffold Astro + Tailwind v4 + GSAP; remove the old Parcel/PostHTML stack; keep the favicons and profile.jpg; add the GitHub Pages workflow (not pushed). Route: inline (no writer trigger). Evidence: astro 7.4.6, tailwind 4.3.4, gsap 3.15.1, TS 6 (`@astrojs/check` does not support TS 7); Node 22.23.4 pinned in `.nvmrc`; `npm run build` gives 0 errors and static `dist/`.
-- [ ] T04 — Design tokens and base layout: colours (#000 / #f2f2f0 / #2b2b2b / #1e1e1e), type scale (16/22.4, 36/41.4 with tracking) and the grid (30px gap; breakpoints 800/1024/1380/1744/2104 for 3–7 columns).
+- [x] T04 — Design tokens and base layout: colours (#000 / #f2f2f0 / #2b2b2b / #1e1e1e), type scale (16/22.4, 36/41.4 with tracking) and the grid (30px gap; breakpoints 800/1024/1380/1744/2104 for 3–7 columns). Route: inline. Evidence: tokens in `src/styles/global.css` (@theme); Switzer variable fonts fetched by `scripts/fetch-fonts.mjs` (prebuild --strict, predev lenient), gitignored, byte-identical to the official zip; `scripts/` excluded from tsconfig because it made `astro check` hang; `npm run build` gives 0 errors. Pending for T10: `size-adjust` metric tuning against Suisse, the `xs` breakpoint (not measured), and an untested strict-failure path in the fetch script.
 - [ ] T05 — Global motion shell: header (`transition:persist`), ClientRouter black-curtain page transition (power3.inOut, 250ms), and the ScrollSmoother lifecycle (>=768px via gsap.matchMedia; init on astro:page-load, kill on astro:before-swap); restore the home scroll position.
 - [ ] T06 — Content collections: schemas for projects and experience; seed data from T02.
 - [ ] T07 — Home: pinned hero with fade-out, per-column scrubbed parallax grid, 3:5 cards with video/image, card hover (clipPath inset + scale 1.1 + caption, 0.5s power4.inOut), grid/list toggle.
@@ -51,5 +51,9 @@ Showcase work experience, selected Solomedia (agency) projects and personal proj
 - 2026-11-05: T01 decided (Switzer). Personal GitHub: github.com/wladimirhernandez. The user wants a later phase to optimize the whole personal brand (LinkedIn and the rest) after the portfolio ships.
 - 2026-11-07: Node 22.23.4 installed into the nvm folder (the global switch still needs an admin `nvm use 22.23.4`). T03 done.
 
+- 2026-11-07: T04 blocker. The Switzer license (ITF FFL v2.0, 17 Aug 2026) allows self-hosting through @font-face (s.36, s.59) but forbids making the files available through a "repository" or "publicly accessible servers" (s.53), and forbids subsetting or modification (s.51). Committing the woff2 files to this public repo is therefore not allowed. Fork pending the user's choice: fetch the fonts at build time (gitignored), use the Fontshare CDN, or switch to an OFL font.
+
+- 2026-11-07: The user chose "Fetch at build". T04 done.
+
 ## Next step
-T04 (tokens, Switzer self-hosted, base layout); T02 content still needed from the user.
+T05 (motion shell: header, page transition, ScrollSmoother lifecycle). T02 content is still needed from the user before T06.

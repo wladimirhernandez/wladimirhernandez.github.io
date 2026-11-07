@@ -9,7 +9,10 @@
     "node": ">=22.23.4"
   },
   "scripts": {
+    "fonts": "node scripts/fetch-fonts.mjs",
+    "predev": "node scripts/fetch-fonts.mjs",
     "dev": "astro dev",
+    "prebuild": "node scripts/fetch-fonts.mjs --strict",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",
