@@ -7,11 +7,10 @@ export const profile = {
   name: 'Wladimir Hernández',
   role: 'Product Engineer',
   location: 'Barinas, Venezuela (UTC−4)',
-  /** Started coding at 14; the user was 31 in 2026, so 2026 - 17 = 2009. */
-  codingStartAge: 14,
-  codingSince: 2009,
+  /** First professional role (Barbers Cloud, 2018-08); drives "years of experience". */
+  careerStart: '2018-08',
   summary:
-    'Product engineer who has been writing code since the age of 14, building scalable web applications and automating business processes for startups and digital agencies.',
+    'Full-stack developer building scalable web applications and automating business processes since 2018, with a track record of shipping projects for startups and digital agencies.',
   contact: {
     email: 'wladimirhernandezdev@gmail.com',
     linkedin: 'https://www.linkedin.com/in/wladimir-hernandez',
@@ -43,7 +42,9 @@ export const profile = {
   ],
 } as const;
 
-/** Years writing code (since age 14), computed at build time so it stays current. */
-export function yearsCoding(now: Date = new Date()): number {
-  return now.getFullYear() - profile.codingSince;
+/** Full years since the first professional role, computed at build time. */
+export function yearsOfExperience(now: Date = new Date()): number {
+  const [year, month] = profile.careerStart.split('-').map(Number);
+  const months = (now.getFullYear() - year) * 12 + (now.getMonth() + 1 - month);
+  return Math.floor(months / 12);
 }
