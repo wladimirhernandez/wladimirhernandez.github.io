@@ -1,39 +1,86 @@
 ---
 import { profile } from '../data/profile';
+import { LANG_STORAGE_KEY, defaultLang, localizePath, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const other: Lang = lang === defaultLang ? 'es' : defaultLang;
+const home = localizePath(lang, '/');
+const switchHref = localizePath(other, Astro.url.pathname);
 ---
 
 <!--
-  Persisted across navigations. Which action shows (About pill or back
-  arrow) follows the `data-route` attribute on <html>, which the router
-  updates from each new page, so no script is needed.
+  Persisted across navigations within one language (the persist id includes
+  the language, so switching language swaps in the other header). Which
+  action shows (About pill or back arrow) follows the `data-route` attribute
+  on <html>; the language link is kept in sync by the script below.
 -->
-<header class="site-header" transition:persist="site-header">
-  <a href="/" class="site-header__logo" aria-label={`${profile.name}, home`}>
+<header class="site-header" transition:persist={`site-header-${lang}`}>
+  <a href={home} class="site-header__logo" aria-label={`${profile.name}, ${t('nav.home')}`}>
     {profile.name.split(' ')[0]}<span aria-hidden="true">.</span>
   </a>
 
-  <nav class="site-header__actions" aria-label="Primary">
+  <nav class="site-header__actions" aria-label={t('nav.primary')}>
     <!-- Grid/list switch for the home page; hidden until the home script enables it. -->
     <button
       type="button"
       class="site-header__toggle"
       data-show-on="home"
       data-view-toggle
+      data-label-list={t('view.toList')}
+      data-label-grid={t('view.toGrid')}
       aria-pressed="false"
-      aria-label="Show projects as a list"
+      aria-label={t('view.toList')}
       hidden
     >
       <span class="site-header__toggle-bar"></span>
       <span class="site-header__toggle-bar"></span>
     </button>
-    <a href="/about" class="site-header__pill" data-show-on="home">About</a>
-    <a href="/" class="site-header__back" data-show-on="inner" aria-label="Back to home">
+    <a
+      href={switchHref}
+      class="site-header__lang"
+      hreflang={other}
+      lang={other}
+      data-lang-switch={other}
+    >
+      {/* The accessible name starts with the visible label (WCAG 2.5.3). */}
+      {other.toUpperCase()}<span class="sr-only">, {t('lang.switch')}</span>
+    </a>
+    <a href={localizePath(lang, '/about')} class="site-header__pill" data-show-on="home">{t('nav.about')}</a>
+    <a href={home} class="site-header__back" data-show-on="inner" aria-label={t('nav.back')}>
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
         <path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
     </a>
   </nav>
 </header>
+
+<script is:inline define:vars={{ storageKey: LANG_STORAGE_KEY }}>
+  // Point the language link at the current page's translation and remember an explicit choice.
+  if (!window.__langSwitchReady) {
+    window.__langSwitchReady = true;
+    const sync = () => {
+      document.querySelectorAll('[data-lang-switch]').forEach((link) => {
+        const alternate = document.querySelector(`link[rel="alternate"][hreflang="${link.dataset.langSwitch}"]`);
+        if (alternate) link.setAttribute('href', new URL(alternate.href).pathname);
+      });
+    };
+    document.addEventListener('astro:page-load', sync);
+    document.addEventListener('click', (event) => {
+      const link = event.target instanceof Element && event.target.closest('[data-lang-switch]');
+      if (!link) return;
+      try {
+        localStorage.setItem(storageKey, link.dataset.langSwitch);
+      } catch {
+        // The choice still applies to this navigation.
+      }
+    });
+  }
+</script>
 
 <style>
   .site-header {
@@ -102,6 +149,7 @@ import { profile } from '../data/profile';
   }
 
   .site-header__toggle,
+  .site-header__lang,
   .site-header__pill,
   .site-header__back {
     display: inline-flex;
@@ -121,17 +169,25 @@ import { profile } from '../data/profile';
     font-weight: 600;
   }
 
-  .site-header__back {
+  .site-header__back,
+  .site-header__lang {
     inline-size: 55px;
   }
 
+  .site-header__lang {
+    font-size: var(--text-nav);
+    font-weight: 600;
+  }
+
   .site-header__toggle:hover,
+  .site-header__lang:hover,
   .site-header__pill:hover,
   .site-header__back:hover {
     background-color: var(--color-theme-gray);
   }
 
   .site-header__toggle:focus-visible,
+  .site-header__lang:focus-visible,
   .site-header__pill:focus-visible,
   .site-header__back:focus-visible,
   .site-header__logo:focus-visible {

@@ -16,16 +16,26 @@ export const profile = {
     linkedin: 'https://www.linkedin.com/in/wladimir-hernandez',
     github: 'https://github.com/wladimirhernandez',
   },
+  /**
+   * Current stack from the user's recent repositories (approved 2026-11-07),
+   * plus Angular and Java (Spring Boot), six years of the user's career, and NestJS.
+   */
   skills: {
-    languages: ['JavaScript', 'TypeScript', 'Java', 'Python'],
-    frameworks: ['Angular', 'React', 'Node.js', 'Spring Boot', 'Selenium'],
-    databases: ['MySQL', 'MongoDB'],
-    testing: ['Jest', 'TestNG', 'JUnit'],
-    tools: ['Git', 'Docker', 'Jira', 'SonarQube', 'Jenkins', 'Bitbucket'],
+    shopify: [
+      'Online Store 2.0 themes (Liquid, Horizon)',
+      'Apps (React Router, Polaris, App Bridge)',
+      'Functions',
+      'Theme app extensions',
+      'Metafields and metaobjects',
+    ],
+    frontend: ['TypeScript', 'Angular', 'React', 'Next.js', 'Astro', 'Tailwind CSS', 'GSAP'],
+    backend: ['Java (Spring Boot)', 'Node.js', 'NestJS', 'Prisma', '.NET (C#, WPF)', 'C++'],
+    quality: ['Playwright', 'Vitest', 'Accessibility (WCAG 2.2 AA)'],
+    tools: ['Git', 'GitHub Actions', 'Docker', 'AI-assisted development'],
   },
   spokenLanguages: [
     { language: 'Spanish', level: 'Native' },
-    { language: 'English', level: 'Intermediate' },
+    { language: 'English', level: 'B2 (upper intermediate)' },
   ],
   education: {
     institution: 'Universidad Nacional Experimental Politécnica de la Fuerza Armada Nacional Bolivariana',
@@ -34,12 +44,6 @@ export const profile = {
     start: '2012-09',
     end: '2018-07',
   },
-  certifications: [
-    { name: 'Career in JavaScript Development', issuer: 'Platzi', year: 2018 },
-    { name: 'Frontend Architecture Career', issuer: 'Platzi', year: 2020 },
-    { name: 'JavaScript Algorithms and Data Structures', issuer: 'freeCodeCamp', year: 2023 },
-    { name: 'Angular Certification', issuer: 'HackerRank', year: 2023 },
-  ],
 } as const;
 
 /** Full years since the first professional role, computed at build time. */

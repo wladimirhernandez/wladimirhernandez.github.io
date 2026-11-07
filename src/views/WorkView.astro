@@ -1,0 +1,201 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import ProjectRow from '../components/home/ProjectRow.astro';
+import ProjectChips from '../components/work/ProjectChips.astro';
+import { profile } from '../data/profile';
+import type { LocalizedProject } from '../i18n/content';
+import { localizePath, useTranslations, type Lang } from '../i18n/ui';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  lang: Lang;
+  project: LocalizedProject;
+  more: LocalizedProject[];
+}
+
+const { lang, project, more } = Astro.props;
+const t = useTranslations(lang);
+const { title, tagline, kind, client, year, tags, url, repo, hero, heroAlt, gallery } = project.data;
+const { Content } = await render(project.body);
+---
+
+<BaseLayout lang={lang} title={`${title} | ${profile.name}`} description={tagline}>
+  <main data-page="work">
+    <article>
+      <header class="relative h-svh overflow-hidden" data-work-hero>
+        <Image
+          src={hero}
+          alt={heroAlt}
+          widths={[640, 1280, 1920, 2560]}
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+          class="size-full object-cover"
+        />
+        <div
+          class="absolute inset-x-0 bottom-0 bg-linear-to-t from-theme-black from-15% via-theme-black/75 to-transparent px-4 pt-48 pb-10 md:px-[60px] md:pb-14"
+        >
+          <h1 class="max-w-[60rem] text-4xl font-medium tracking-[-0.03em] md:text-6xl" data-work-title>
+            {title}
+          </h1>
+        </div>
+      </header>
+
+      <div class="mx-auto max-w-grid px-4 md:px-[60px]">
+        <section class="max-w-[60rem] pt-16 md:pt-24" aria-labelledby="work-intro" data-reveal>
+          <ProjectChips tags={tags} label={t('card.tags')} />
+          <h2 id="work-intro" class="mt-8 text-2xl tracking-[-0.3px] md:text-3xl lg:text-heading">
+            {tagline}
+          </h2>
+          <div class="work-body mt-8 flex flex-col gap-4 text-body">
+            <Content />
+          </div>
+
+          <dl class="mt-10 flex flex-wrap gap-x-10 gap-y-4 text-body">
+            <div>
+              <dt class="text-theme-dark-gray/60">{t('work.year')}</dt>
+              <dd>{year}</dd>
+            </div>
+            {
+              kind === 'agency' && client && (
+                <div>
+                  <dt class="text-theme-dark-gray/60">{t('work.client')}</dt>
+                  <dd>{client}</dd>
+                </div>
+              )
+            }
+          </dl>
+
+          {
+            (url || repo) && (
+              <div class="mt-10 flex flex-wrap gap-4">
+                {url && (
+                  <a class="work-pill" href={url} target="_blank" rel="noopener">
+                    {t('work.visit')}
+                    <span class="sr-only"> {t('work.newTab')}</span>
+                  </a>
+                )}
+                {repo && (
+                  <a class="work-pill" href={repo} target="_blank" rel="noopener">
+                    {t('work.github')}
+                    <span class="sr-only"> {t('work.newTab')}</span>
+                  </a>
+                )}
+              </div>
+            )
+          }
+        </section>
+
+        {
+          gallery.length > 0 && (
+            <section class="pt-16 md:pt-24" aria-label={t('work.gallery')}>
+              <ul class="flex flex-col gap-gutter">
+                {gallery.map((item) => (
+                  <li data-reveal>
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      widths={[640, 1280, 1920, 2560]}
+                      sizes="(min-width: 50rem) calc(100vw - 120px), calc(100vw - 32px)"
+                      class="w-full rounded-card"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+      </div>
+    </article>
+
+    <div class="mx-auto max-w-grid px-4 pt-20 pb-24 md:px-[60px] md:pt-32">
+      {
+        more.length > 0 && (
+          <section aria-labelledby="more-work" data-reveal>
+            <h2 id="more-work" class="text-2xl leading-8">
+              {t('work.more')}
+            </h2>
+            <ul class="-mx-3 mt-6 flex flex-col md:-mx-4">
+              {more.map((other) => (
+                <li>
+                  <ProjectRow project={other} lang={lang} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      <div class="mt-16">
+        <a class="work-pill" href={localizePath(lang, '/')}>{t('work.home')}</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .work-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    block-size: 55px;
+    padding-inline: 28px;
+    border-radius: 9999px;
+    background-color: var(--color-theme-button);
+    color: var(--color-theme-icon);
+    font-size: var(--text-nav);
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .work-pill:hover {
+    background-color: var(--color-theme-gray);
+  }
+
+  .work-pill:focus-visible,
+  .work-body :global(a:focus-visible) {
+    outline: 2px solid var(--color-theme-light);
+    outline-offset: 3px;
+  }
+
+  .work-body :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .work-body :global(a:hover) {
+    text-decoration-thickness: 2px;
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { onPage, prefersReducedMotion } from '../scripts/motion';
+
+  onPage('[data-page="work"]', () => {
+    if (prefersReducedMotion()) return;
+
+    gsap.fromTo(
+      '[data-work-title]',
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 1, delay: 0.6, ease: 'power3.out', clearProps: 'all' },
+    );
+
+    gsap.utils.toArray<HTMLElement>('[data-page="work"] [data-reveal]').forEach((element) => {
+      gsap.fromTo(
+        element,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: element, start: 'top 85%', once: true },
+        },
+      );
+    });
+  });
+</script>

@@ -17,6 +17,8 @@ const experience = defineCollection({
       end: yearMonth.nullable(),
       highlights: z.array(z.string()),
       stack: z.array(z.string()),
+      /** Spanish role and highlights (required by the /es/ pages). */
+      es: z.object({ role: z.string(), highlights: z.array(z.string()) }).optional(),
     })
     .refine((entry) => entry.end === null || entry.end >= entry.start, {
       message: 'end must not be earlier than start',
@@ -57,4 +59,20 @@ const projects = defineCollection({
       }),
 });
 
-export const collections = { experience, projects };
+/**
+ * Spanish copy for each project, matched by file name to `projects`:
+ * translated text fields plus the Markdown body. Shared data (images, links,
+ * tags, order) stays in the English entry.
+ */
+const projectsEs = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/projects-es' }),
+  schema: z.object({
+    tagline: z.string(),
+    cardAlt: z.string(),
+    heroAlt: z.string(),
+    /** One alt per gallery image, in the same order as the English entry. */
+    galleryAlts: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { experience, projects, projectsEs };

@@ -1,19 +1,23 @@
 ---
-import { profile, yearsOfExperience } from '../../data/profile';
+import { profile } from '../../data/profile';
+import { profileText } from '../../i18n/content';
+import type { Lang } from '../../i18n/ui';
 
-const firstName = profile.name.split(' ')[0];
-const since = profile.careerStart.slice(0, 4);
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = profileText[lang];
+const line = copy.heroLine(profile.name.split(' ')[0]);
 ---
 
 <!-- Pinned statement; the project grid scrolls over it while it fades. -->
 <section class="home-hero" data-hero aria-labelledby="home-hero-title">
   <h1 id="home-hero-title" class="home-hero__title" data-hero-title>
-    I'm {firstName}, a <em class="home-hero__accent">{profile.role}</em> crafting storefronts, real-time tools and
-    game-inspired interfaces.
+    {line.before}<em class="home-hero__accent">{profile.role}</em>{line.after}
   </h1>
-  <p class="home-hero__lead" data-hero-title>
-    {yearsOfExperience()}+ years building for the web, since {since}. Below is some of my most recent work.
-  </p>
+  <p class="home-hero__lead" data-hero-title>{copy.heroLead}</p>
 </section>
 
 <style>

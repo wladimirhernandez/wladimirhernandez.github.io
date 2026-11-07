@@ -1,14 +1,17 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
+import { localizePath, useTranslations, type Lang } from '../../i18n/ui';
 
 interface Props {
-  project: CollectionEntry<'projects'>;
+  project: { id: string; data: CollectionEntry<'projects'>['data'] };
+  lang: Lang;
   /** The first cards are above the fold: load them eagerly. */
   eager?: boolean;
 }
 
-const { project, eager = false } = Astro.props;
+const { project, lang, eager = false } = Astro.props;
+const t = useTranslations(lang);
 const { title, tagline, tags, card, cardAlt, cardPosition, flag } = project.data;
 ---
 
@@ -17,7 +20,7 @@ const { title, tagline, tags, card, cardAlt, cardPosition, flag } = project.data
   zooms, caption slides in) is pure CSS so it also works on keyboard focus.
   The home script measures the caption into --caption-h.
 -->
-<a href={`/work/${project.id}`} class="project-card" data-card>
+<a href={localizePath(lang, `/work/${project.id}`)} class="project-card" data-card>
   <div class="project-card__media">
     <Image
       src={card}
@@ -40,13 +43,13 @@ const { title, tagline, tags, card, cardAlt, cardPosition, flag } = project.data
             d="M8 0l1.6 3.2L13 2l-1.2 3.4L15 7l-3.2 1.6L13 12l-3.4-1.2L8 14l-1.6-3.2L3 12l1.2-3.4L1 7l3.2-1.6L3 2l3.4 1.2z"
           />
         </svg>
-        {flag}
+        {t(`flag.${flag}`)}
       </span>
     )
   }
 
   <div class="project-card__caption" data-caption>
-    <ul class="project-card__tags" aria-label="Tags">
+    <ul class="project-card__tags" aria-label={t('card.tags')}>
       {tags.slice(0, 3).map((tag) => <li class="project-card__tag">{tag}</li>)}
     </ul>
     <p class="project-card__title">

@@ -1,17 +1,20 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
+import { localizePath, useTranslations, type Lang } from '../../i18n/ui';
 
 interface Props {
-  project: CollectionEntry<'projects'>;
+  project: { id: string; data: CollectionEntry<'projects'>['data'] };
+  lang: Lang;
 }
 
-const { project } = Astro.props;
+const { project, lang } = Astro.props;
+const t = useTranslations(lang);
 const { title, tagline, tags, card, cardAlt, cardPosition } = project.data;
 ---
 
 <!-- List-view row: thumbnail, title with tagline, chips. -->
-<a href={`/work/${project.id}`} class="project-row" data-row>
+<a href={localizePath(lang, `/work/${project.id}`)} class="project-row" data-row>
   <Image
     src={card}
     alt={cardAlt}
@@ -26,7 +29,7 @@ const { title, tagline, tags, card, cardAlt, cardPosition } = project.data;
       <span class="opacity-40" aria-hidden="true">&rarr;</span>
       <span class="opacity-40">{tagline}</span>
     </p>
-    <ul class="project-row__tags" aria-label="Tags">
+    <ul class="project-row__tags" aria-label={t('card.tags')}>
       {tags.map((tag) => <li class="project-row__tag">{tag}</li>)}
     </ul>
   </div>

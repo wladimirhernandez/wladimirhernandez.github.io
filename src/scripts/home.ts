@@ -187,7 +187,9 @@ onPage('[data-page="home"]', () => {
       const shown = views[view];
       const hidden = views[view === 'grid' ? 'list' : 'grid'];
       toggle.setAttribute('aria-pressed', String(view === 'list'));
-      toggle.setAttribute('aria-label', view === 'list' ? 'Show projects as a grid' : 'Show projects as a list');
+      // Labels come from the header in the page's language.
+      const label = view === 'list' ? toggle.dataset.labelGrid : toggle.dataset.labelList;
+      if (label) toggle.setAttribute('aria-label', label);
 
       const swap = () => {
         hidden.hidden = true;

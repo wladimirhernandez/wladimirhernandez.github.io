@@ -1,0 +1,117 @@
+---
+import Hero from '../components/home/Hero.astro';
+import ProjectCard from '../components/home/ProjectCard.astro';
+import ProjectRow from '../components/home/ProjectRow.astro';
+import { profile } from '../data/profile';
+import { getProjects } from '../i18n/content';
+import { useTranslations, type Lang } from '../i18n/ui';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const projects = await getProjects(lang);
+---
+
+<BaseLayout lang={lang} title={`${profile.name} | ${profile.role}`}>
+  <main data-page="home">
+    <Hero lang={lang} />
+
+    <section class="home-work" aria-labelledby="home-work-title">
+      <h2 id="home-work-title" class="home-work__title">{t('home.recent')}</h2>
+      <!--
+        Grid view. Without JS this is a plain CSS grid; the home script
+        redistributes the cards into staggered columns for the parallax.
+      -->
+      <div class="home-grid" data-view="grid" data-grid>
+        {projects.map((project, index) => <ProjectCard project={project} lang={lang} eager={index < 4} />)}
+      </div>
+
+      <div class="home-list" data-view="list" hidden>
+        <ul class="flex flex-col gap-1">
+          {
+            projects.map((project) => (
+              <li>
+                <ProjectRow project={project} lang={lang} />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<script>
+  import '../scripts/home';
+</script>
+
+<style>
+  .home-work {
+    position: relative;
+    z-index: 1;
+  }
+
+  .home-work__title {
+    max-inline-size: var(--container-grid);
+    margin-inline: auto;
+    padding-inline: var(--spacing-gutter);
+    font-size: var(--text-body);
+    font-weight: 600;
+    color: rgb(242 242 240 / 0.6);
+  }
+
+  .home-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr));
+    gap: var(--spacing-gutter);
+    max-inline-size: var(--container-grid);
+    margin-inline: auto;
+    padding: var(--spacing-gutter);
+    align-items: start;
+  }
+
+  .home-list {
+    max-inline-size: var(--container-grid);
+    margin-inline: auto;
+    padding: var(--spacing-gutter);
+  }
+
+  @media (width >= 40rem) {
+    .home-grid {
+      --cols: 2;
+    }
+  }
+
+  @media (width >= 50rem) {
+    .home-grid {
+      --cols: 3;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .home-grid {
+      --cols: 4;
+    }
+  }
+
+  @media (width >= 86.25rem) {
+    .home-grid {
+      --cols: 5;
+    }
+  }
+
+  /* Column wrappers created by the home script. */
+  .home-grid :global(.grid-col) {
+    min-inline-size: 0;
+  }
+
+  .home-grid :global(.grid-col-inner) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-gutter);
+  }
+</style>

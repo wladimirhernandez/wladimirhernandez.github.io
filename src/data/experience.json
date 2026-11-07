@@ -6,7 +6,11 @@
     "start": "2026-02",
     "end": null,
     "highlights": [],
-    "stack": []
+    "stack": [],
+    "es": {
+      "role": "Product Engineer",
+      "highlights": []
+    }
   },
   {
     "id": "insoftar-lead",
@@ -18,7 +22,23 @@
       "As tech lead of the DataJelpit project for Servicios Bolívar S.A., improved architecture, code coverage and unit tests by more than 60%.",
       "Built bots on the company's own RPA platform, speeding up daily operations by more than 300%."
     ],
-    "stack": ["Angular", "Java", "Spring Boot", "Selenium", "TestNG", "JUnit", "Ionic", "Angular Material"]
+    "stack": [
+      "Angular",
+      "Java",
+      "Spring Boot",
+      "Selenium",
+      "TestNG",
+      "JUnit",
+      "Ionic",
+      "Angular Material"
+    ],
+    "es": {
+      "role": "Líder Full Stack y de Automatización",
+      "highlights": [
+        "Como líder técnico del proyecto DataJelpit para Servicios Bolívar S.A., mejoré la arquitectura, la cobertura de código y las pruebas unitarias en más de un 60 %.",
+        "Desarrollé bots en la plataforma RPA propia de la empresa, que agilizaron las operaciones diarias en más de un 300 %."
+      ]
+    }
   },
   {
     "id": "fixu-full-stack",
@@ -30,7 +50,22 @@
       "Created a base for email signature templates, one of the company's most requested services.",
       "Introduced tutorials that walk customers through managing their websites on their own."
     ],
-    "stack": ["Angular", "Java", "WordPress", "PHP", "JavaScript", "jQuery", "React"]
+    "stack": [
+      "Angular",
+      "Java",
+      "WordPress",
+      "PHP",
+      "JavaScript",
+      "jQuery",
+      "React"
+    ],
+    "es": {
+      "role": "Desarrollador Web Full Stack",
+      "highlights": [
+        "Creé una base de plantillas de firmas de correo, uno de los servicios más solicitados de la empresa.",
+        "Introduje tutoriales que guían a los clientes para administrar sus sitios web por su cuenta."
+      ]
+    }
   },
   {
     "id": "solomedia-team-leader",
@@ -42,7 +77,23 @@
       "Proposed and led the migration of the team's projects from Bootstrap to Tailwind CSS.",
       "Drove SEO and performance work that raised Google PageSpeed Insights scores by about 20% on average."
     ],
-    "stack": ["Angular", "Java", "WordPress", "JavaScript", "jQuery", "Liquid", "Vue", "Docker"]
+    "stack": [
+      "Angular",
+      "Java",
+      "WordPress",
+      "JavaScript",
+      "jQuery",
+      "Liquid",
+      "Vue",
+      "Docker"
+    ],
+    "es": {
+      "role": "Líder de equipo",
+      "highlights": [
+        "Propuse y lideré la migración de los proyectos del equipo de Bootstrap a Tailwind CSS.",
+        "Impulsé mejoras de SEO y rendimiento que subieron en promedio un 20 % las puntuaciones de Google PageSpeed Insights."
+      ]
+    }
   },
   {
     "id": "solomedia-front-end",
@@ -54,7 +105,22 @@
       "Helped split the team into dedicated front-end and back-end roles for the first time, improving development and delivery times by more than 25%.",
       "Built the Angular front end of an internal app for tracking developer schedules and tickets."
     ],
-    "stack": ["Angular", "Java", "WordPress", "JavaScript", "jQuery", "Liquid", "Vue"]
+    "stack": [
+      "Angular",
+      "Java",
+      "WordPress",
+      "JavaScript",
+      "jQuery",
+      "Liquid",
+      "Vue"
+    ],
+    "es": {
+      "role": "Desarrollador Web Front-end",
+      "highlights": [
+        "Ayudé a separar por primera vez los roles de front-end y back-end del equipo, lo que mejoró los tiempos de desarrollo y entrega en más de un 25 %.",
+        "Desarrollé en Angular el front-end de una aplicación interna para gestionar los horarios y tickets de los desarrolladores."
+      ]
+    }
   },
   {
     "id": "barbers-cloud-front-end",
@@ -66,6 +132,17 @@
       "Delivered visual and functional improvements across about 70% of the web platform.",
       "Integrated the PayU payment gateway into the mobile app."
     ],
-    "stack": ["Angular", "Ionic", "Angular Material"]
+    "stack": [
+      "Angular",
+      "Ionic",
+      "Angular Material"
+    ],
+    "es": {
+      "role": "Desarrollador Web Front-end",
+      "highlights": [
+        "Realicé mejoras visuales y funcionales en cerca del 70 % de la plataforma web.",
+        "Integré la pasarela de pagos PayU en la aplicación móvil."
+      ]
+    }
   }
 ]

@@ -37,6 +37,7 @@ Showcase work experience, selected Solomedia (agency) projects and personal proj
 - [x] T08 — Project page `/work/[slug]`: case study layout and reveal animations. Route: delegated writer (parallel unit). Evidence: commit bd9ab54; parent review fixed the hero gradient and replaced a duplicate ProjectRow with the home one.
 - [x] T09 — About page: bio, experience, contact. Route: delegated writer (parallel unit). Evidence: commit 1f2b19f.
 - [x] T10 — Responsive and parity verification: parity-check at several viewports against this.design (layout/motion parity, not content), plus an accessibility pass and `prefers-reduced-motion`. Evidence 2026-11-07: production build + headless Chrome over 7 pages x desktop/mobile x normal/reduced motion: axe WCAG 2.2 AA clean, no horizontal scroll, one h1, all images with alt, no console errors; T05 regression 20/20. Fixed: secondary text raised from 40% to 60% opacity for AA contrast. Not run: parity-check against this.design (pixel parity is not meaningful with different content).
+- [ ] T12 — i18n (2026-11-07). User: "tambien por un localizador de idioma y traducción eng/esp". Scope: Astro i18n routing (en at /, es at /es/), EN/ES switcher in the header that keeps the current page and remembers the choice, first-visit redirect to /es/ for Spanish browsers without a saved choice, hreflang alternates, full Spanish translation (UI, profile, experience, project texts) in neutral professional Spanish. Route: inline (one intertwined unit).
 - [ ] T11 — Deploy: log into the personal GitHub account, push, enable Pages via Actions, verify the live site.
 
 ## Acceptance criteria
@@ -58,4 +59,4 @@ Showcase work experience, selected Solomedia (agency) projects and personal proj
 - 2026-11-07: The user asked not to be interrupted by review prompts ("revisa tú pero no cortes el trabajo"). RDD disabled for this clone only; Claude self-reviews each diff before committing. Self-review found a missing fetch timeout, now fixed.
 
 ## Next step
-T11 deploy: needs the user's explicit go-ahead to push and merge into master (the push publishes the site over the current live one).
+T12 i18n, then T11 deploy (push blocked until the gh token gets the workflow scope; the user approved PR and merge on 2026-11-07).
