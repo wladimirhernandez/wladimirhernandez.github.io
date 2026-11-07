@@ -1,0 +1,18 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getProjects } from '../../i18n/content';
+import WorkView from '../../views/WorkView.astro';
+
+// getStaticPaths runs in its own scope: it can use imports but not other frontmatter constants.
+export const getStaticPaths = (async () => {
+  const projects = await getProjects('en');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project, more: projects.filter((other) => other.id !== project.id).slice(0, 3) },
+  }));
+}) satisfies GetStaticPaths;
+
+const { project, more } = Astro.props;
+---
+
+<WorkView lang="en" project={project} more={more} />

@@ -1,0 +1,222 @@
+---
+import { profile } from '../data/profile';
+import { LANG_STORAGE_KEY, defaultLang, localizePath, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const other: Lang = lang === defaultLang ? 'es' : defaultLang;
+const home = localizePath(lang, '/');
+const switchHref = localizePath(other, Astro.url.pathname);
+---
+
+<!--
+  Persisted across navigations within one language (the persist id includes
+  the language, so switching language swaps in the other header). Which
+  action shows (About pill or back arrow) follows the `data-route` attribute
+  on <html>; the language link is kept in sync by the script below.
+-->
+<header class="site-header" transition:persist={`site-header-${lang}`}>
+  <a href={home} class="site-header__logo" aria-label={`${profile.name}, ${t('nav.home')}`}>
+    {profile.name.split(' ')[0]}<span aria-hidden="true">.</span>
+  </a>
+
+  <nav class="site-header__actions" aria-label={t('nav.primary')}>
+    <!-- Grid/list switch for the home page; hidden until the home script enables it. -->
+    <button
+      type="button"
+      class="site-header__toggle"
+      data-show-on="home"
+      data-view-toggle
+      data-label-list={t('view.toList')}
+      data-label-grid={t('view.toGrid')}
+      aria-pressed="false"
+      aria-label={t('view.toList')}
+      hidden
+    >
+      <span class="site-header__toggle-bar"></span>
+      <span class="site-header__toggle-bar"></span>
+    </button>
+    <a
+      href={switchHref}
+      class="site-header__lang"
+      hreflang={other}
+      lang={other}
+      data-lang-switch={other}
+    >
+      {/* The accessible name starts with the visible label (WCAG 2.5.3). */}
+      {other.toUpperCase()}<span class="sr-only">, {t('lang.switch')}</span>
+    </a>
+    <a href={localizePath(lang, '/about')} class="site-header__pill" data-show-on="home">{t('nav.about')}</a>
+    <a href={home} class="site-header__back" data-show-on="inner" aria-label={t('nav.back')}>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+        <path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </a>
+  </nav>
+</header>
+
+<script is:inline define:vars={{ storageKey: LANG_STORAGE_KEY }}>
+  // Point the language link at the current page's translation and remember an explicit choice.
+  if (!window.__langSwitchReady) {
+    window.__langSwitchReady = true;
+    const sync = () => {
+      document.querySelectorAll('[data-lang-switch]').forEach((link) => {
+        const alternate = document.querySelector(`link[rel="alternate"][hreflang="${link.dataset.langSwitch}"]`);
+        if (alternate) link.setAttribute('href', new URL(alternate.href).pathname);
+      });
+    };
+    document.addEventListener('astro:page-load', sync);
+    document.addEventListener('click', (event) => {
+      const link = event.target instanceof Element && event.target.closest('[data-lang-switch]');
+      if (!link) return;
+      try {
+        localStorage.setItem(storageKey, link.dataset.langSwitch);
+      } catch {
+        // The choice still applies to this navigation.
+      }
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  .site-header__logo,
+  .site-header__actions {
+    pointer-events: auto;
+  }
+
+  .site-header__logo {
+    position: absolute;
+    inset-block-start: 15px;
+    inset-inline-start: var(--spacing-gutter);
+    font-size: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: #fff;
+    mix-blend-mode: difference;
+    text-decoration: none;
+  }
+
+  .site-header__actions {
+    position: absolute;
+    inset-block-start: 16px;
+    inset-inline-end: 16px;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .site-header__toggle[hidden] {
+    display: none !important;
+  }
+
+  .site-header__toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    inline-size: 55px;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .site-header__toggle-bar {
+    display: block;
+    inline-size: 18px;
+    block-size: 2px;
+    border-radius: 2px;
+    background-color: currentColor;
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  /* Pressed (list view): the two bars collapse into a single line. */
+  .site-header__toggle[aria-pressed='true'] .site-header__toggle-bar:first-child {
+    transform: translateY(4px);
+  }
+
+  .site-header__toggle[aria-pressed='true'] .site-header__toggle-bar:last-child {
+    transform: translateY(-4px);
+  }
+
+  .site-header__toggle,
+  .site-header__lang,
+  .site-header__pill,
+  .site-header__back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    block-size: 55px;
+    border-radius: 9999px;
+    background-color: var(--color-theme-button);
+    color: var(--color-theme-icon);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .site-header__pill {
+    inline-size: 144px;
+    font-size: var(--text-nav);
+    font-weight: 600;
+  }
+
+  .site-header__back,
+  .site-header__lang {
+    inline-size: 55px;
+  }
+
+  .site-header__lang {
+    font-size: var(--text-nav);
+    font-weight: 600;
+  }
+
+  .site-header__toggle:hover,
+  .site-header__lang:hover,
+  .site-header__pill:hover,
+  .site-header__back:hover {
+    background-color: var(--color-theme-gray);
+  }
+
+  .site-header__toggle:focus-visible,
+  .site-header__lang:focus-visible,
+  .site-header__pill:focus-visible,
+  .site-header__back:focus-visible,
+  .site-header__logo:focus-visible {
+    outline: 2px solid var(--color-theme-light);
+    outline-offset: 3px;
+  }
+
+  :global(html[data-route='home']) [data-show-on='inner'],
+  :global(html[data-route='inner']) [data-show-on='home'] {
+    display: none;
+  }
+
+  /* The grid/list toggle only exists from md up, like the reference. */
+  @media (width < 50rem) {
+    .site-header__toggle {
+      display: none !important;
+    }
+  }
+
+  @media (width >= 50rem) {
+    .site-header__logo {
+      inset-block-start: 43px;
+      inset-inline-start: 60px;
+      font-size: 1.75rem;
+    }
+
+    .site-header__actions {
+      inset-block-start: 30px;
+      inset-inline-end: 30px;
+    }
+  }
+</style>

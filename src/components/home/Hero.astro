@@ -1,0 +1,59 @@
+---
+import { profile } from '../../data/profile';
+import { profileText } from '../../i18n/content';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = profileText[lang];
+const line = copy.heroLine(profile.name.split(' ')[0]);
+---
+
+<!-- Pinned statement; the project grid scrolls over it while it fades. -->
+<section class="home-hero" data-hero aria-labelledby="home-hero-title">
+  <h1 id="home-hero-title" class="home-hero__title" data-hero-title>
+    {line.before}<em class="home-hero__accent">{profile.role}</em>{line.after}
+  </h1>
+  <p class="home-hero__lead" data-hero-title>{copy.heroLead}</p>
+</section>
+
+<style>
+  .home-hero {
+    position: relative;
+    z-index: 0;
+    block-size: 75vh;
+    padding: 9rem 1.25rem 0;
+  }
+
+  .home-hero__title {
+    max-inline-size: 72rem;
+    font-size: clamp(2.25rem, 6.4vw, 7rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+
+  .home-hero__lead {
+    max-inline-size: 36rem;
+    margin-block-start: 2rem;
+    font-size: var(--text-lead);
+    font-weight: 500;
+    line-height: var(--text-lead--line-height);
+    color: rgb(242 242 240 / 0.6);
+  }
+
+  .home-hero__accent {
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  @media (width >= 50rem) {
+    .home-hero {
+      padding-inline: 3.5rem;
+      padding-block-start: 11rem;
+    }
+  }
+</style>

@@ -1,0 +1,123 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { localizePath, useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  project: { id: string; data: CollectionEntry<'projects'>['data'] };
+  lang: Lang;
+}
+
+const { project, lang } = Astro.props;
+const t = useTranslations(lang);
+const { title, tagline, tags, card, cardAlt, cardPosition } = project.data;
+---
+
+<!-- List-view row: thumbnail, title with tagline, chips. -->
+<a href={localizePath(lang, `/work/${project.id}`)} class="project-row" data-row>
+  <Image
+    src={card}
+    alt={cardAlt}
+    widths={[240, 428]}
+    sizes="(min-width: 800px) 214px, 120px"
+    class="project-row__thumb"
+    style={`object-position: ${cardPosition}`}
+  />
+  <div class="project-row__body">
+    <p class="project-row__title">
+      <span class="font-medium">{title}</span>
+      <span class="opacity-40" aria-hidden="true">&rarr;</span>
+      <span class="opacity-40">{tagline}</span>
+    </p>
+    <ul class="project-row__tags" aria-label={t('card.tags')}>
+      {tags.map((tag) => <li class="project-row__tag">{tag}</li>)}
+    </ul>
+  </div>
+</a>
+
+<style>
+  .project-row {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-theme-black);
+    color: var(--color-theme-light);
+    text-decoration: none;
+    transition: background-color 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  .project-row:is(:hover, :focus-visible) {
+    background-color: rgb(43 43 43 / 0.5);
+    transition-duration: 2s;
+  }
+
+  .project-row:focus-visible {
+    outline: 2px solid var(--color-theme-light);
+    outline-offset: 2px;
+  }
+
+  .project-row__thumb {
+    flex: none;
+    inline-size: 120px;
+    block-size: 80px;
+    border-radius: var(--radius-thumb);
+    object-fit: cover;
+  }
+
+  .project-row__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.75rem;
+    max-inline-size: 470px;
+    padding-inline: 0.5rem;
+  }
+
+  .project-row__title {
+    font-size: 1.125rem;
+    line-height: 1;
+  }
+
+  .project-row__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .project-row__tag {
+    padding: 0.5rem 0.875rem 0.625rem;
+    border-radius: var(--radius-chip);
+    background-color: var(--color-theme-gray);
+    font-size: var(--text-chip);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  @media (width >= 40rem) {
+    .project-row__title {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (width >= 50rem) {
+    .project-row {
+      padding: 0.75rem;
+    }
+
+    .project-row__thumb {
+      inline-size: 214px;
+      block-size: 120px;
+    }
+
+    .project-row__body {
+      padding-inline: 1rem;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .project-row__title {
+      font-size: 1.875rem;
+    }
+  }
+</style>

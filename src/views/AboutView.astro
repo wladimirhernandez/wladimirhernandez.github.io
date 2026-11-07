@@ -1,0 +1,188 @@
+---
+import { profile } from '../data/profile';
+import { formatMonth, getExperience, profileText } from '../i18n/content';
+import { useTranslations, type Lang, type UiKey } from '../i18n/ui';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const copy = profileText[lang];
+
+const experience = await getExperience(lang);
+const current = experience.find((entry) => entry.end === null);
+const range = (start: string, end: string | null) =>
+  `${formatMonth(lang, start)} – ${end ? formatMonth(lang, end) : t('about.present')}`;
+
+const skillGroups = Object.entries(profile.skills).map(([key, items]) => ({
+  label: t(`skills.${key}` as UiKey),
+  items,
+}));
+
+const education = profile.education.map((entry) => ({
+  ...entry,
+  degree: copy.degrees[entry.id],
+  period: entry.start && entry.end ? `${entry.start.slice(0, 4)} – ${entry.end.slice(0, 4)}` : copy.inProgress,
+}));
+const atCompany = lang === 'es' ? 'en' : 'at';
+
+const links = [
+  { label: 'LinkedIn', href: profile.contact.linkedin },
+  { label: 'GitHub', href: profile.contact.github },
+];
+
+const headingClass = 'mb-6 text-body font-semibold text-theme-dark-gray/60';
+const linkClass =
+  'underline decoration-theme-dark-gray/40 underline-offset-4 transition-colors hover:decoration-current focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-theme-light';
+---
+
+<BaseLayout lang={lang} title={`${t('about.title')} | ${profile.name}`} description={copy.summary}>
+  <main data-page="about" class="px-5 pt-36 pb-24 text-white md:px-10 md:pt-48 md:pb-32">
+    <!-- Lead statement with the current role aside. -->
+    <div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_16rem] md:gap-gutter lg:grid-cols-[minmax(0,1fr)_20rem]">
+      <h1
+        data-lead
+        class="max-w-[60rem] text-2xl leading-[1.15] font-normal tracking-[-0.3px] md:text-3xl md:leading-[1.15] lg:text-heading lg:leading-[1.15]"
+      >
+        <span class="font-semibold">{profile.name}</span>{copy.aboutLead}
+      </h1>
+      <aside data-lead class="text-body font-semibold md:pt-2" aria-label={t('about.currentRole')}>
+        {
+          current && (
+            <p>
+              {current.role} {atCompany} {current.company}
+            </p>
+          )
+        }
+        <p class="text-theme-dark-gray/60">{profile.location}</p>
+      </aside>
+    </div>
+
+    <p class="mt-10 max-w-[48rem] text-lead text-theme-light/80" data-lead>{copy.aboutProfile}</p>
+
+    <!-- Experience -->
+    <section class="mt-24 md:mt-36" aria-labelledby="about-experience">
+      <h2 id="about-experience" class={headingClass} data-reveal>{t('about.experience')}</h2>
+      <ol class="max-w-[60rem] border-t border-theme-gray">
+        {
+          experience.map((entry) => (
+            <li class="grid gap-2 border-b border-theme-gray py-6 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-gutter" data-reveal>
+              <p class="text-body text-theme-dark-gray/60">{range(entry.start, entry.end)}</p>
+              <div>
+                <h3 class="text-lead font-medium">
+                  {entry.role}
+                  <span class="text-theme-dark-gray/60"> · {entry.company}</span>
+                </h3>
+                {entry.highlights.length > 0 && (
+                  <ul class="mt-3 flex flex-col gap-2 text-body">
+                    {entry.highlights.map((highlight) => (
+                      <li>{highlight}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <!-- Skills -->
+    <section class="mt-24 md:mt-36" aria-labelledby="about-skills">
+      <h2 id="about-skills" class={headingClass} data-reveal>{t('about.skills')}</h2>
+      <div class="grid max-w-[72rem] grid-cols-1 gap-x-gutter gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {
+          skillGroups.map((group) => (
+            <div data-reveal>
+              <h3 class="mb-2 text-body font-semibold">{group.label}</h3>
+              <ul class="flex flex-col gap-1 text-body">
+                {group.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Education and spoken languages -->
+    <div class="mt-24 grid max-w-[60rem] gap-16 md:mt-36 md:grid-cols-2 md:gap-gutter">
+      <section aria-labelledby="about-education" data-reveal>
+        <h2 id="about-education" class={headingClass}>{t('about.education')}</h2>
+        <ul class="flex flex-col gap-6">
+          {
+            education.map((entry) => (
+              <li>
+                <p class="text-body font-semibold">{entry.degree}</p>
+                <p class="text-body">{entry.institution}</p>
+                <p class="text-body text-theme-dark-gray/60">
+                  {entry.location}, {entry.period}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section aria-labelledby="about-languages" data-reveal>
+        <h2 id="about-languages" class={headingClass}>{t('about.languages')}</h2>
+        <ul class="text-body">
+          {
+            copy.spokenLanguages.map((entry) => (
+              <li>
+                {entry.language} <span class="text-theme-dark-gray/60">· {entry.level}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
+
+    <!-- Closing -->
+    <section class="mt-24 md:mt-36" aria-labelledby="about-contact" data-reveal>
+      <h2 id="about-contact" class="sr-only">{t('about.contact')}</h2>
+      <p class="text-lead font-medium">{t('about.closing')}</p>
+      <ul class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-body">
+        <li>
+          <a class={`${linkClass} break-all`} href={`mailto:${profile.contact.email}`}>{profile.contact.email}</a>
+        </li>
+        {
+          links.map((link) => (
+            <li>
+              <a class={linkClass} href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.label}
+                <span class="sr-only"> {t('work.newTab')}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</BaseLayout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { onPage, prefersReducedMotion } from '../scripts/motion';
+
+  const REVEAL = { duration: 1, ease: 'power3.out' } as const;
+
+  onPage('[data-page="about"]', () => {
+    if (prefersReducedMotion()) return;
+
+    const lead = gsap.utils.toArray<HTMLElement>('[data-page="about"] [data-lead]');
+    gsap.fromTo(lead, { opacity: 0, y: 40 }, { opacity: 1, y: 0, delay: 0.25, stagger: 0.1, ...REVEAL });
+
+    gsap.utils.toArray<HTMLElement>('[data-page="about"] [data-reveal]').forEach((element) => {
+      gsap.fromTo(
+        element,
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, ...REVEAL, scrollTrigger: { trigger: element, start: 'top 85%', once: true } },
+      );
+    });
+  });
+</script>

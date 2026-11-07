@@ -43,3 +43,11 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Astro
+/dist
+/.astro
+
+# Switzer webfonts: ITF FFL forbids publishing them in a public repo.
+# Fetched by scripts/fetch-fonts.mjs before dev/build.
+/public/fonts

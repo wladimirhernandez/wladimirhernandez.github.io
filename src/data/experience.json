@@ -1,0 +1,104 @@
+[
+  {
+    "id": "solomedia-product-engineer",
+    "company": "Solo Media Group",
+    "role": "Product Engineer",
+    "start": "2026-04",
+    "end": null,
+    "highlights": [
+      "Lead the ongoing technical evolution of the Shopify ecosystem, building high-performance discount and checkout extensions (including Rust modules compiled to WebAssembly) and advanced integrations with APIs and third-party apps.",
+      "Oversee storefront components end to end, with continuous visual and functional improvements focused on the user experience, strategic caching and faster load times.",
+      "Keep production reliable: version control, plugin and JavaScript app updates, and hands-on resolution of infrastructure, hosting and platform incidents."
+    ],
+    "stack": ["Shopify (Liquid, Functions, Storefront API)", "Rust (WebAssembly)", "JavaScript", "TypeScript", "Vue.js", "Angular", "Docker"],
+    "es": {
+      "role": "Product Engineer",
+      "highlights": [
+        "Lidero la evolución técnica continua del ecosistema Shopify, construyendo extensiones de alto rendimiento para la lógica de descuentos y checkout (incluidos módulos en Rust compilados a WebAssembly) e integraciones avanzadas con APIs y aplicaciones de terceros.",
+        "Superviso de punta a punta los componentes de las tiendas, con mejoras visuales y funcionales continuas orientadas a la experiencia del usuario, gestión estratégica de caché y optimización de los tiempos de carga.",
+        "Mantengo la confiabilidad en producción: control de versiones, actualización de plugins y aplicaciones JavaScript, y resolución directa de incidencias de infraestructura, hosting y plataforma."
+      ]
+    }
+  },
+  {
+    "id": "insoftar-lead",
+    "company": "Insoftar",
+    "role": "Lead Full Stack Developer",
+    "start": "2022-10",
+    "end": "2026-01",
+    "highlights": [
+      "Designed and built OlivIA, a conversational assistant inside the ARL Guardián enterprise system that guides users interactively to speed up adoption and shorten the learning curve.",
+      "Led the architectural modernization of DataJelpit for Servicios Bolívar S.A., refactoring the code and raising unit test coverage by more than 60% after auditing over 250 critical files.",
+      "Built automation bots on the company's own RPA platform, increasing the efficiency of daily operations by 300%.",
+      "Implemented microservices and serverless functions on AWS Lambda for the ARL Guardián ecosystem, with high availability and scalability."
+    ],
+    "stack": ["Java", "Spring Boot", "Node.js", "Angular", "Ionic", "Selenium", "AWS (Lambda, S3)", "JUnit", "Jest"],
+    "es": {
+      "role": "Lead Full Stack Developer",
+      "highlights": [
+        "Diseñé e implementé OlivIA, un asistente conversacional integrado en el sistema empresarial ARL Guardián que guía a los usuarios de forma interactiva para acelerar la adopción de la plataforma y reducir su curva de aprendizaje.",
+        "Lideré la modernización arquitectónica de DataJelpit para Servicios Bolívar S.A., refactorizando el código y elevando la cobertura de pruebas unitarias en más de un 60 % tras auditar más de 250 archivos críticos.",
+        "Desarrollé bots de automatización en la plataforma RPA propia de la empresa, que aumentaron un 300 % la eficiencia de las operaciones diarias.",
+        "Implementé microservicios y funciones serverless en AWS Lambda para el ecosistema ARL Guardián, con alta disponibilidad y escalabilidad."
+      ]
+    }
+  },
+  {
+    "id": "fixu-full-stack",
+    "company": "Fixu",
+    "role": "Full Stack Product Developer",
+    "start": "2022-03",
+    "end": "2022-09",
+    "highlights": [
+      "Designed and built a modular system for dynamic email signature templates and Angular and JavaScript boilerplates, standardizing one of the most requested services.",
+      "Built dynamic interface components tied to backend logic and introduced practical guides so clients could manage the delivered products on their own."
+    ],
+    "stack": ["Angular", "React", "TypeScript", "JavaScript", "WordPress", "PHP", "Java"],
+    "es": {
+      "role": "Full Stack Product Developer",
+      "highlights": [
+        "Diseñé y construí un sistema modular de plantillas dinámicas de firmas de correo y arquitecturas base (boilerplates) en Angular y JavaScript, estandarizando uno de los servicios más solicitados.",
+        "Desarrollé componentes de interfaz dinámicos conectados a la lógica de backend e impulsé guías prácticas para que los clientes gestionaran por su cuenta los productos entregados."
+      ]
+    }
+  },
+  {
+    "id": "solomedia-team-leader",
+    "company": "Solo Media Group",
+    "role": "Team Leader & Frontend Web Developer",
+    "start": "2019-10",
+    "end": "2022-02",
+    "highlights": [
+      "Restructured the workflow by splitting frontend and backend responsibilities, introduced Docker to standardize environments and led the move from Bootstrap to Tailwind CSS, increasing the team's delivery speed by 25%.",
+      "Applied new rendering and asset optimization strategies that raised the sites' average Google PageSpeed Insights score by 20%.",
+      "Built the Angular internal app the development team used to track schedules and tickets."
+    ],
+    "stack": ["Angular", "Vue.js", "Liquid", "WordPress", "Tailwind CSS", "JavaScript", "Java", "Docker"],
+    "es": {
+      "role": "Team Leader y Frontend Web Developer",
+      "highlights": [
+        "Reestructuré el flujo de trabajo separando las responsabilidades de frontend y backend, introduje Docker para estandarizar los entornos y lideré la migración de Bootstrap a Tailwind CSS, aumentando un 25 % la velocidad de entrega del equipo.",
+        "Implementé nuevas estrategias de renderizado y optimización de recursos que elevaron un 20 % el puntaje promedio de los sitios en Google PageSpeed Insights.",
+        "Desarrollé en Angular la aplicación interna de control de horarios y gestión de tickets del equipo de desarrollo."
+      ]
+    }
+  },
+  {
+    "id": "weibook-front-end",
+    "company": "Weibook (formerly Barbers Cloud)",
+    "role": "Frontend Web Developer",
+    "start": "2018-08",
+    "end": "2019-09",
+    "highlights": [
+      "Delivered the visual and functional redesign of 70% of the web platform and built the PayU payment flow in the mobile app."
+    ],
+    "stack": ["Angular", "Ionic", "Angular Material", "TypeScript"],
+    "es": {
+      "company": "Weibook (antes Barbers Cloud)",
+      "role": "Frontend Web Developer",
+      "highlights": [
+        "Ejecuté la renovación visual y funcional del 70 % de la plataforma web e implementé en la aplicación móvil el flujo de cobros con la pasarela de pago PayU."
+      ]
+    }
+  }
+]
