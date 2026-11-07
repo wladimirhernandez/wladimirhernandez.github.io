@@ -22,7 +22,11 @@ const skillGroups = Object.entries(profile.skills).map(([key, items]) => ({
   items,
 }));
 
-const educationYears = `${profile.education.start.slice(0, 4)} – ${profile.education.end.slice(0, 4)}`;
+const education = profile.education.map((entry) => ({
+  ...entry,
+  degree: copy.degrees[entry.id],
+  period: entry.start && entry.end ? `${entry.start.slice(0, 4)} – ${entry.end.slice(0, 4)}` : copy.inProgress,
+}));
 const atCompany = lang === 'es' ? 'en' : 'at';
 
 const links = [
@@ -43,7 +47,7 @@ const linkClass =
         data-lead
         class="max-w-[60rem] text-2xl leading-[1.15] font-normal tracking-[-0.3px] md:text-3xl md:leading-[1.15] lg:text-heading lg:leading-[1.15]"
       >
-        <span class="font-semibold">{profile.name}</span>{copy.aboutLead.before}{profile.role}{copy.aboutLead.after}
+        <span class="font-semibold">{profile.name}</span>{copy.aboutLead}
       </h1>
       <aside data-lead class="text-body font-semibold md:pt-2" aria-label={t('about.currentRole')}>
         {
@@ -56,6 +60,8 @@ const linkClass =
         <p class="text-theme-dark-gray/60">{profile.location}</p>
       </aside>
     </div>
+
+    <p class="mt-10 max-w-[48rem] text-lead text-theme-light/80" data-lead>{copy.aboutProfile}</p>
 
     <!-- Experience -->
     <section class="mt-24 md:mt-36" aria-labelledby="about-experience">
@@ -107,11 +113,19 @@ const linkClass =
     <div class="mt-24 grid max-w-[60rem] gap-16 md:mt-36 md:grid-cols-2 md:gap-gutter">
       <section aria-labelledby="about-education" data-reveal>
         <h2 id="about-education" class={headingClass}>{t('about.education')}</h2>
-        <p class="text-body font-semibold">{copy.degree}</p>
-        <p class="text-body">{profile.education.institution}</p>
-        <p class="text-body text-theme-dark-gray/60">
-          {profile.education.location}, {educationYears}
-        </p>
+        <ul class="flex flex-col gap-6">
+          {
+            education.map((entry) => (
+              <li>
+                <p class="text-body font-semibold">{entry.degree}</p>
+                <p class="text-body">{entry.institution}</p>
+                <p class="text-body text-theme-dark-gray/60">
+                  {entry.location}, {entry.period}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
       </section>
 
       <section aria-labelledby="about-languages" data-reveal>

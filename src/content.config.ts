@@ -17,8 +17,8 @@ const experience = defineCollection({
       end: yearMonth.nullable(),
       highlights: z.array(z.string()),
       stack: z.array(z.string()),
-      /** Spanish role and highlights (required by the /es/ pages). */
-      es: z.object({ role: z.string(), highlights: z.array(z.string()) }).optional(),
+      /** Spanish role and highlights (required by the /es/ pages); company only when it differs. */
+      es: z.object({ company: z.string().optional(), role: z.string(), highlights: z.array(z.string()) }).optional(),
     })
     .refine((entry) => entry.end === null || entry.end >= entry.start, {
       message: 'end must not be earlier than start',

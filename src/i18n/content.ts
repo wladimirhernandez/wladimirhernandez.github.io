@@ -4,45 +4,68 @@
  * `projects-es` collection), and missing translations fail the build.
  */
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { profile, yearsOfExperience } from '../data/profile';
+import { profile, yearsOfExperience, type EducationId } from '../data/profile';
 import { dateLocale, type Lang } from './ui';
 
 const since = profile.careerStart.slice(0, 4);
+const years = yearsOfExperience();
 
-export const profileText = {
+interface ProfileCopy {
+  /** Meta description. */
+  summary: string;
+  heroLine: (firstName: string) => { before: string; after: string };
+  heroLead: string;
+  /** About h1: name + `aboutLead`. */
+  aboutLead: string;
+  /** About profile paragraph, adapted from the CV's professional profile. */
+  aboutProfile: string;
+  degrees: Record<EducationId, string>;
+  inProgress: string;
+  spokenLanguages: { language: string; level: string }[];
+}
+
+export const profileText: Record<Lang, ProfileCopy> = {
   en: {
-    summary: profile.summary,
-    heroLine: (firstName: string) => ({
+    summary: `Product Engineer and Senior Full Stack Developer with ${years}+ years of commercial experience building, scaling and optimizing digital products, e-commerce platforms and enterprise applications.`,
+    heroLine: (firstName) => ({
       before: `I'm ${firstName}, a `,
       after: ' crafting storefronts, real-time tools and game-inspired interfaces.',
     }),
-    heroLead: `${yearsOfExperience()}+ years building for the web, since ${since}. Below is some of my most recent work.`,
-    aboutLead: {
-      before: ' is a ',
-      after: ' building scalable web applications and automating business processes since 2018, shipping projects for startups and digital agencies.',
+    heroLead: `${years}+ years building for the web, since ${since}. Below is some of my most recent work.`,
+    aboutLead: ` is a Product Engineer and Senior Full Stack Developer with ${years}+ years of commercial experience building, scaling and optimizing digital products.`,
+    aboutProfile:
+      'A systems engineer who has been coding, self-taught, since the age of 14. I connect business goals, conversion and user experience (UI/UX, technical SEO, Core Web Vitals) with high-performance software: from advanced Shopify ecosystems (Rust/WebAssembly extensions, API integrations and custom checkout logic) to backend microservices (Java Spring Boot, Node.js), modern interfaces (Angular, Vue.js, React), cloud infrastructure (AWS, Docker) and intelligent automation with AI and RPA.',
+    degrees: {
+      masters: "Master's in Educational Guidance (research in applied AI)",
+      'systems-engineering': 'Systems Engineering',
     },
-    degree: profile.education.degree,
-    spokenLanguages: profile.spokenLanguages,
+    inProgress: 'In progress',
+    spokenLanguages: [
+      { language: 'Spanish', level: 'Native' },
+      { language: 'English', level: 'B2 (professional)' },
+    ],
   },
   es: {
-    summary:
-      'Desarrollador full-stack que crea aplicaciones web escalables y automatiza procesos de negocio desde 2018, con proyectos entregados para startups y agencias digitales.',
-    heroLine: (firstName: string) => ({
+    summary: `Product Engineer y Senior Full Stack Developer con más de ${years} años de experiencia comercial creando, escalando y optimizando productos digitales, plataformas de e-commerce y aplicaciones empresariales.`,
+    heroLine: (firstName) => ({
       before: `Soy ${firstName}, `,
       after: ', y creo tiendas en línea, herramientas en tiempo real e interfaces inspiradas en videojuegos.',
     }),
-    heroLead: `Más de ${yearsOfExperience()} años construyendo para la web, desde ${since}. Aquí abajo está parte de mi trabajo más reciente.`,
-    aboutLead: {
-      before: ' es ',
-      after: ' y desde 2018 crea aplicaciones web escalables y automatiza procesos de negocio, con proyectos entregados para startups y agencias digitales.',
+    heroLead: `Más de ${years} años construyendo para la web, desde ${since}. Aquí abajo está parte de mi trabajo más reciente.`,
+    aboutLead: ` es Product Engineer y Senior Full Stack Developer, con más de ${years} años de experiencia comercial creando, escalando y optimizando productos digitales.`,
+    aboutProfile:
+      'Ingeniero de Sistemas que programa de forma autodidacta desde los 14 años. Conecto objetivos de negocio, conversión y experiencia de usuario (UI/UX, SEO técnico, Core Web Vitals) con software de alto rendimiento: desde ecosistemas avanzados en Shopify (extensiones en Rust/WebAssembly, integraciones de APIs y lógica personalizada de checkout) hasta microservicios backend (Java Spring Boot, Node.js), interfaces modernas (Angular, Vue.js, React), infraestructura cloud (AWS, Docker) y automatización inteligente con IA y RPA.',
+    degrees: {
+      masters: 'Maestría en Orientación Educativa (investigación en IA aplicada)',
+      'systems-engineering': 'Ingeniería de Sistemas',
     },
-    degree: 'Ingeniería de Sistemas',
+    inProgress: 'En curso',
     spokenLanguages: [
       { language: 'Español', level: 'Nativo' },
-      { language: 'Inglés', level: 'B2 (intermedio alto)' },
+      { language: 'Inglés', level: 'B2 (profesional)' },
     ],
   },
-} as const satisfies Record<Lang, unknown>;
+};
 
 /** "2022-10" -> "Oct 2022" / "oct 2022". */
 export function formatMonth(lang: Lang, value: string): string {
@@ -59,7 +82,10 @@ export async function getExperience(lang: Lang) {
     .map((entry) => {
       if (lang === 'en') return entry;
       if (!entry.es) throw new Error(`Missing Spanish translation for experience "${entry.id}"`);
-      return { ...entry, role: entry.es.role, highlights: entry.es.highlights };
+      if (entry.es.highlights.length !== entry.highlights.length) {
+        throw new Error(`Spanish highlights for experience "${entry.id}" do not match the English ones`);
+      }
+      return { ...entry, company: entry.es.company ?? entry.company, role: entry.es.role, highlights: entry.es.highlights };
     });
 }
 
